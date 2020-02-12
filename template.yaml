@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  SaveItemMongoDBApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: SaveItemMongoDBApiFunction
+      CodeUri: src/Function/function.zip
+      Handler: mongodb_lambda.handler
+      Runtime: python3.7
+      MemorySize: 1024
+      Timeout: 30
+      Tracing: Active
+      Policies:
+        - AWSXrayWriteOnlyAccess
+      ReservedConcurrentExecutions: 10
+      VpcConfig:
+        SecurityGroupIds:
+          - sg-08b12e8bdf431b849
+        SubnetIds:
+          - subnet-08a19d1a47914c5ac
+      Environment:
+        Variables:
+          MONGODB_CONNECTION_STRING: mongodb+srv://<user>:<password>@<your-cluster>.mongodb.net/test?retryWrites=true&w=majority
+      Events:
+        ItemsApiPOSTitems:
+          Type: Api
+          Properties:
+            Path: /items
+            Method: POST
+
+Outputs:
+  HelloWorldApi:
+    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/items"
+
+  GetOrderFunction:
+    Description: "GetOrder Lambda Function ARN"
+    Value: !GetAtt SaveItemMongoDBApiFunction.Arn
