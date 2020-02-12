@@ -31,10 +31,10 @@ Resources:
             Method: POST
 
 Outputs:
-  HelloWorldApi:
+  Api:
     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/items"
 
-  GetOrderFunction:
+  SaveItemMongoDBApiFunction:
     Description: "GetOrder Lambda Function ARN"
     Value: !GetAtt SaveItemMongoDBApiFunction.Arn
