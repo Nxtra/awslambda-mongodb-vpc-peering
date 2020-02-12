@@ -23,6 +23,8 @@ Resources:
       Environment:
         Variables:
           MONGODB_CONNECTION_STRING: mongodb+srv://<user>:<password>@<your-cluster>.mongodb.net/test?retryWrites=true&w=majority
+          DATABASE: yourDatabaseName
+          COLLECTION: yourCollectionName
       Events:
         ItemsApiPOSTitems:
           Type: Api

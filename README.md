@@ -12,11 +12,13 @@ To connect to the MongoDB cluster vpc-peering is used.
 You need to update certain config values in this project to make it work for your own vpc!
 
 In `template.yaml`: 
-* update the environment variable that specifies the connection string to your own connection string.
+* update the environment variable that specifies the connection string, database  and collection to your own connection string, database and connection.
     ```
       Environment:
         Variables:
           MONGODB_CONNECTION_STRING: mongodb+srv://<user>:<password>@<your-cluster>.mongodb.net/test?retryWrites=true&w=majority
+          DATABASE: yourDatabaseName
+          COLLECTION: yourCollectionName
     ```
 * update the `VpcConfig` with your own vpc security group and subnet:
     ```shell script
